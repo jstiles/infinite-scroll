@@ -2,16 +2,22 @@
 const imageContainer = document.getElementById('image-container');
 const loader = document.getElementById('loader');
 
+// variables
 let ready = false;
 let imagesLoaded = 0;
 let totalImages = 0;
 let photosArray = [];
 let initialLoad = true;
-let numImagesToLoad = 5;
 
-// unsplash api
+// unsplash api constants and vars
 const apiKey = 'HunFp489MkBc5c7c2BzRk2Upe0qr967v6gFVFQKM_6I';
-const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&numImagesToLoad=${numImagesToLoad}`;
+let initialNumImagesToLoad = 5;
+let apiUrl = `https://api.unsplash.com/photos/random?client_id=${apiKey}&count=${initialNumImagesToLoad}`;
+
+// update picture count after initial load
+function updateWithNewImageCount (imageCount) {
+  apiUrl = `https://api.unsplash.com/photos/random?client_id=${apiKey}&count=${imageCount}`;
+}
 
 //  check if all images were imageLoaded
 function imageLoaded() {
@@ -19,7 +25,6 @@ function imageLoaded() {
   if (imagesLoaded === totalImages) {
     ready = true;
     loader.hidden = true;  // hide after first time page loads
-    initialLoad = false;
   }
 }
 
@@ -34,13 +39,6 @@ function setAttributes(element, attributes) {
 function displayPhotos() {
   imagesLoaded = 0;
   totalImages = photosArray.length;
-
-  // update numImagesToLoad if not initial load.  Intially load 5 for faster load.
-  // Then switch to 30.  User will be happy with quick initial load and
-  // not notice switch to 30.  Do SEO audit of all apps.
-  if (!initialLoad) {
-    numImagesToLoad = 30;
-  }
 
   // run function for each object in photosArray
   photosArray.forEach((photo) => {
@@ -78,8 +76,12 @@ async function getPhotos() {
     const response = await fetch(apiUrl);
     photosArray = await response.json();
     displayPhotos();
+    if (initialLoad) {
+      updateWithNewImageCount(30);
+      initialLoad = false;
+    }
   } catch (error) {
-    // catch error
+    // console.log("getPhotos: ER! ")
   }
 }
 
@@ -89,9 +91,9 @@ async function getPhotos() {
 window.addEventListener('scroll', () => {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && ready) {
     ready = false;
-    //getPhotos();
+    getPhotos();
   }
 });
 
 // on load
-//getPhotos();
+getPhotos();
