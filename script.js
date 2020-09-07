@@ -7,11 +7,11 @@ let imagesLoaded = 0;
 let totalImages = 0;
 let photosArray = [];
 let initialLoad = true;
-let count = 5;
+let numImagesToLoad = 5;
 
 // unsplash api
 const apiKey = 'HunFp489MkBc5c7c2BzRk2Upe0qr967v6gFVFQKM_6I';
-const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
+const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&numImagesToLoad=${numImagesToLoad}`;
 
 //  check if all images were imageLoaded
 function imageLoaded() {
@@ -35,11 +35,11 @@ function displayPhotos() {
   imagesLoaded = 0;
   totalImages = photosArray.length;
 
-  // update count if not initial load.  Intially load 5 for faster load.
+  // update numImagesToLoad if not initial load.  Intially load 5 for faster load.
   // Then switch to 30.  User will be happy with quick initial load and
   // not notice switch to 30.  Do SEO audit of all apps.
   if (!initialLoad) {
-    count = 30;
+    numImagesToLoad = 30;
   }
 
   // run function for each object in photosArray
