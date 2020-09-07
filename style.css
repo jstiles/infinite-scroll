@@ -18,6 +18,7 @@ h1 {
   margin-bottom: 15px;
   font-size: 25px;
   letter-spacing: 5px;
+  text-decoration: underline;
 }
 
 /* loader */
@@ -54,4 +55,16 @@ h1 {
   .image-container {
     margin: 10px;
   }
+}
+
+/* page border */
+#pageBorder{
+   /* background-image: url(file.png); */
+    background-color: #336699;
+    width: 93%;
+    margin: 0 auto;
+    padding: 20px; /*Border size*/
+}
+.inside-border {
+    background-color: lightblue;
 }

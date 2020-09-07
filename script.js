@@ -1,8 +1,4 @@
-// unsplash API
-const count = 30;
-const apiKey = 'HunFp489MkBc5c7c2BzRk2Upe0qr967v6gFVFQKM_6I';
-const secretKey = 'vPDCTiJHEeiI1WQ00t8yImjfbJIDSZZ1jjFm9tf8Jeo'
-const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
+// constants
 const imageContainer = document.getElementById('image-container');
 const loader = document.getElementById('loader');
 
@@ -10,6 +6,12 @@ let ready = false;
 let imagesLoaded = 0;
 let totalImages = 0;
 let photosArray = [];
+let initialLoad = true;
+let count = 5;
+
+// unsplash api
+const apiKey = 'HunFp489MkBc5c7c2BzRk2Upe0qr967v6gFVFQKM_6I';
+const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
 
 //  check if all images were imageLoaded
 function imageLoaded() {
@@ -17,6 +19,7 @@ function imageLoaded() {
   if (imagesLoaded === totalImages) {
     ready = true;
     loader.hidden = true;  // hide after first time page loads
+    initialLoad = false;
   }
 }
 
@@ -31,6 +34,13 @@ function setAttributes(element, attributes) {
 function displayPhotos() {
   imagesLoaded = 0;
   totalImages = photosArray.length;
+
+  // update count if not initial load.  Intially load 5 for faster load.
+  // Then switch to 30.  User will be happy with quick initial load and
+  // not notice switch to 30.  Do SEO audit of all apps.
+  if (!initialLoad) {
+    count = 30;
+  }
 
   // run function for each object in photosArray
   photosArray.forEach((photo) => {
@@ -53,7 +63,7 @@ function displayPhotos() {
       title: photo.alt_description,
     });
 
-    // Event listerer, check when ech is finished Loading
+    // Event listerer, check when each is finished Loading
     img.addEventListener('load', imageLoaded);
 
     // put image inside anchor element <a>, the put both in imageContainer elements
@@ -79,9 +89,9 @@ async function getPhotos() {
 window.addEventListener('scroll', () => {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && ready) {
     ready = false;
-    getPhotos();
+    //getPhotos();
   }
 });
 
 // on load
-getPhotos();
+//getPhotos();

@@ -8,18 +8,36 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Title -->
-  <h1>Infinite Image Scroll</h1>
-  <!-- Loader -->
-  <div class="loader" id="loader">
-    <img src="loader.svg" alt="Loading">
+  <div id="pageBorder" >
+    <div class="inside-border" >
+
+        <!-- Title -->
+        <br>
+        <h1>Infinite Image Scroll</h1>
+
+        <!-- ============================================== -->
+        <!-- Debug Note:  comment loader div, uncomment images to restyle page
+        If you don't you will hit the max image limit of unsplash and not be
+        able to load images for 24 hours.  Maybe find alternative. -->
+        <!-- ============================================== -->
+
+        <!-- Loader -->
+        <div class="loader" id="loader">
+          <img src="loader.svg" alt="Loading">
+        </div>
+
+        <!-- images -->
+        <div class="image-container" id="image-container">
+          <!-- <img src="test_image_creek_bridge.jpeg" alt="">
+          <img src="test_image_creek_bridge.jpeg" alt="">
+          <img src="test_image_creek_bridge.jpeg" alt="">
+          <img src="test_image_creek_bridge.jpeg" alt="">
+          <img src="test_image_creek_bridge.jpeg" alt=""> -->
+        </div>
+
+      </div>
   </div>
-  <!-- images -->
-  <div class="image-container" id="image-container">
-    <!-- <img src="test_image_creek_bridge.jpeg" alt="">
-    <img src="test_image_creek_bridge.jpeg" alt="">
-    <img src="test_image_creek_bridge.jpeg" alt=""> -->
-  </div>
+
   <!-- <script -->
   <script src="script.js"></script>
 </body>
